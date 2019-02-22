@@ -1,0 +1,86 @@
+//Program for DFS travesal of graph
+import java.util.*;
+import java.io.*;
+class Graph
+{
+
+  int n;
+    ArrayList<LinkedList<Integer>> edges = new ArrayList<LinkedList<Integer>>();
+   int[] visited;
+  public void addEdge(int v1, int v2)
+  {
+       LinkedList<Integer> ne ;
+    //   System.out.println("hi"+ edges.size());
+    if (edges.size() <= v1)
+    {
+               ne = new LinkedList<Integer>();
+               ne.add(v2);
+               edges.add( ne);
+                  //   System.out.println("Initialze" + v1);
+   
+    }
+    else
+    {
+       ne =  edges.get(v1);
+       ne.add(v2);
+      //  System.out.println(ne);
+    }
+    
+
+  }
+  public void explore(int n)
+  {
+      System.out.println(n);
+      visited[n] = 1;
+      //in case no subsequent element return
+      if (n> (edges.size()-1))
+      {
+       //   System.out.println("alreadyexplored" + n);
+          return;
+      }
+      else
+      {
+          LinkedList ll = edges.get(n);
+          Iterator itr = ll.iterator();
+          while(itr.hasNext())
+          {
+              int adj = (int)itr.next();
+              if (visited[adj] != 1)
+              {
+              explore(adj);
+              }
+          }
+          
+      }
+  }
+   
+   public void dfs()
+   {
+       int startnode = 0;
+        visited = new int[n];
+        
+        explore(startnode);
+      // visited[0] = 1;
+       
+   }
+}
+public class MyClass {
+    public static void main(String args[]) {
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Enter no of edges in graph");
+            int e = sc.nextInt();
+            System.out.println("Enter no of nodes in graph");
+                 int n = sc.nextInt();
+            System.out.println("Enter edges in graph");
+            Graph g = new Graph();
+            g.n = n;
+            for (int i = 0;i<e ;i++)
+            {
+                int v1 =  sc.nextInt();
+                  int v2 =  sc.nextInt();
+                  g.addEdge(v1, v2);
+            }
+             //System.out.println(g.edges);
+             g.dfs();
+    }
+}
